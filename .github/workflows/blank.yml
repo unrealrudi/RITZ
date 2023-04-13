@@ -1,0 +1,21 @@
+name: Haxe Build (Windows)
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Haxe
+      run: choco install haxe -y
+    - name: Install OpenFL
+      run: haxelib install openfl
+    - name: Install Lime
+      run: haxelib install lime
+    - name: Install Windows dependencies
+      run: lime setup windows
+    - name: Build
+      run: lime build windows -debug
